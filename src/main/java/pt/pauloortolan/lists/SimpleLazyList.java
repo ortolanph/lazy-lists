@@ -15,7 +15,7 @@ public record SimpleLazyList(List<String> items) implements LazyList<String> {
 
     @Override
     public LazyList<String> tail() {
-        return SimpleLazyList.of(items.stream().skip(1).toList());
+        return SimpleLazyList.of(items.subList(1, items.size()));
     }
 
     @Override
