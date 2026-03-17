@@ -12,6 +12,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +30,9 @@ public class LazyListBenchmark {
                 .addProfiler("gc")
                 .addProfiler("stack", "lines=5;top=10")
                 .addProfiler("comp")
+                .addProfiler("async")
+                .measurementIterations(50)
+                .measurementTime(TimeValue.nanoseconds(5))
                 .build();
         new Runner(opt).run();
     }
