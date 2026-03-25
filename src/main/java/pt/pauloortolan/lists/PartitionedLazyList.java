@@ -10,12 +10,14 @@ public record PartitionedLazyList(List<String> items, int partitionSize) impleme
 
     @Override
     public List<String> head() {
-        return items.subList(0, partitionSize);
+        return items.subList(0, Math.min(items.size(), partitionSize));
     }
 
     @Override
     public LazyList<List<String>> tail() {
-        return new PartitionedLazyList(items.subList(partitionSize, items.size()), partitionSize);
+        return (partitionSize > items.size()) ?
+                new PartitionedLazyList(List.of(), partitionSize) :
+                new PartitionedLazyList(items.subList(partitionSize, items.size()), partitionSize);
     }
 
     @Override
